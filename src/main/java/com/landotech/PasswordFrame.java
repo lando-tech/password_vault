@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
 
 public class PasswordFrame extends JFrame {
 
@@ -100,8 +101,8 @@ public class PasswordFrame extends JFrame {
         this.passwordPanel.setPasswordField(row, col);
     }
 
-    public void addPasswordField(GridBagConstraints gblConstraints) {
-        this.passwordPanel.setPasswordField(gblConstraints);
+    public void addPasswordField(GridBagConstraints gblConstraints, int startingWidth) {
+        this.passwordPanel.setPasswordField(gblConstraints, startingWidth);
     }
 
     public void addHidePasswordButton(int row, int col) {

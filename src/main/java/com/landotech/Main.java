@@ -1,6 +1,7 @@
 package com.landotech;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
 
 public class Main {
     public static void main( String[] args ) {
@@ -10,6 +11,8 @@ public class Main {
         PasswordPanel passwordPanel = new PasswordPanel();
         mainWindow.setPasswordPanel(passwordPanel);
         mainWindow.setPanelBorder(Color.WHITE);
+
+        GridBagConstraints gblConstraints = new GridBagConstraints();
 
         mainWindow.addSelectionSliders(0, 0);
         mainWindow.addSelectionSlider(SliderType.LETTER, new GridBagConstraints());
