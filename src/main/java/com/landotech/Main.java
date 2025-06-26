@@ -5,11 +5,6 @@ import java.awt.Insets;
 
 public class Main {
     public static void main( String[] args ) {
-        // PasswordEngine passwordEngine = new PasswordEngine();
-        // String password = passwordEngine.generatePassword(16);
-        // System.out.println(password);
-        // System.out.println(password.length());
-
         PasswordFrame mainWindow = new PasswordFrame("Java Swing PW", 2, 1);
         mainWindow.setMainLabel("Password Generator");
 

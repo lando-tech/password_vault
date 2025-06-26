@@ -46,8 +46,6 @@ public class PasswordPanel extends JPanel {
         this.gblConstraints.gridy = row;
     }
 
-
-
     private void addSliderLabel(JLabel sliderLabel, int row, int column) {
         setGblGridXY(row, column);
         this.add(sliderLabel, this.gblConstraints);
