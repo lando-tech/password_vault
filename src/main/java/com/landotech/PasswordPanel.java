@@ -68,7 +68,8 @@ public class PasswordPanel extends JPanel {
     }
 
     private void addSlider(PasswordSlider passwordSlider, GridBagConstraints gblConstraints) {
-        this.addSlider(passwordSlider, gblConstraints);
+        this.add(passwordSlider, gblConstraints);
+        this.generationHandler.addSlider(passwordSlider);
     }
 
     private void addGenerateButton(PasswordGenButton passwordGenButton, int row, int col) {
@@ -88,6 +89,7 @@ public class PasswordPanel extends JPanel {
 
     private void addPasswordField(PasswordField passwordField, GridBagConstraints gblConstraints) {
         this.add(passwordField, gblConstraints);
+        this.generationHandler.setPasswordField(this.passwordField);
     }
 
     private void addHidePasswordButton(HidePasswordButton hidePasswordButton, int row, int col) {
