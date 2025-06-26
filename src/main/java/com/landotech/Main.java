@@ -1,7 +1,6 @@
 package com.landotech;
 
 import java.awt.Color;
-import java.awt.Insets;
 
 public class Main {
     public static void main( String[] args ) {
@@ -13,11 +12,10 @@ public class Main {
         mainWindow.setPanelBorder(Color.WHITE);
 
         mainWindow.addSelectionSliders(0, 0);
+        mainWindow.addSelectionSlider(SliderType.LETTER, new GridBagConstraints());
         mainWindow.addGenerateButton(3, 0);
         mainWindow.addPasswordField(4, 0);
         mainWindow.addHidePasswordButton(4, 1);
-
-        mainWindow.setButtonBorder(new Insets(8, 8, 8, 8));
 
         mainWindow.setVisible(true);
     }

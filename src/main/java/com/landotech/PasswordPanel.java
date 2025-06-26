@@ -23,9 +23,6 @@ public class PasswordPanel extends JPanel {
 
     private GenerationHandler generationHandler;
 
-    private EmptyBorder buttonBorder;
-    private EmptyBorder sliderBorder;
-    private EmptyBorder textAreaBorder;
 
     PasswordPanel() {
         this.setLayout(getGblayout());
@@ -46,9 +43,22 @@ public class PasswordPanel extends JPanel {
         this.gblConstraints.gridy = row;
     }
 
+    private void setGblPadXY(int padx, int pady) {
+        this.gblConstraints.ipadx = padx;
+        this.gblConstraints.ipady = pady;
+    }
+
+    private void setGblInsets(Insets insets) {
+        this.gblConstraints.insets = insets;
+    }
+
     private void addSliderLabel(JLabel sliderLabel, int row, int column) {
         setGblGridXY(row, column);
         this.add(sliderLabel, this.gblConstraints);
+    }
+
+    private void addSliderLabel(JLabel sliderLabel, GridBagConstraints gblConstraints) {
+        this.add(sliderLabel, gblConstraints);
     }
 
     private void addSlider(PasswordSlider slider, int row, int col) {
@@ -57,9 +67,17 @@ public class PasswordPanel extends JPanel {
         this.generationHandler.addSlider(slider);
     }
 
+    private void addSlider(PasswordSlider passwordSlider, GridBagConstraints gblConstraints) {
+        this.addSlider(passwordSlider, gblConstraints);
+    }
+
     private void addGenerateButton(PasswordGenButton passwordGenButton, int row, int col) {
         setGblGridXY(row, col);
         this.add(passwordGenButton, this.gblConstraints);
+    }
+
+    private void addGenerateButton(PasswordGenButton passwordGenButton, GridBagConstraints gblConstraints) {
+        this.add(passwordGenButton, gblConstraints);
     }
 
     private void addPasswordField(PasswordField passwordField, int row, int col) {
@@ -68,9 +86,17 @@ public class PasswordPanel extends JPanel {
         this.generationHandler.setPasswordField(this.passwordField);
     }
 
+    private void addPasswordField(PasswordField passwordField, GridBagConstraints gblConstraints) {
+        this.add(passwordField, gblConstraints);
+    }
+
     private void addHidePasswordButton(HidePasswordButton hidePasswordButton, int row, int col) {
         setGblGridXY(row, col);
         this.add(hidePasswordButton, this.gblConstraints);
+    }
+
+    private void addHidePasswordButton(HidePasswordButton hidePasswordButton, GridBagConstraints gblConstraints) {
+        this.add(hidePasswordButton, gblConstraints);
     }
 
     private void setGenerationHandler() {
@@ -85,14 +111,16 @@ public class PasswordPanel extends JPanel {
         return this.gblConstraints;
     }
 
-    public void setGblInsets(Insets gblInsets) {
-        this.gblConstraints.insets = gblInsets;
-    }
-
     public void setGenerateButton(int row, int col) {
         this.generateButton = new PasswordGenButton("Generate");
         this.generateButton.addActionListener(this.generationHandler);
         addGenerateButton(generateButton, row, col);
+    }
+
+    public void setGenerateButton(GridBagConstraints gblConstraints) {
+        this.generateButton = new PasswordGenButton("Generate");
+        this.generateButton.addActionListener(this.generationHandler);
+        addGenerateButton(generateButton, gblConstraints);
     }
 
     public void setHideButton(int row, int col) {
@@ -101,9 +129,20 @@ public class PasswordPanel extends JPanel {
         addHidePasswordButton(hidePasswordButton, row, col);
     }
 
+    public void setHideButton(GridBagConstraints gblConstraints) {
+        this.hidePasswordButton = new HidePasswordButton();
+        this.hidePasswordButton.addField(this.passwordField);
+        addHidePasswordButton(hidePasswordButton, gblConstraints);
+    }
+
     public void setPasswordField(int row, int col) {
         this.passwordField = new PasswordField(20);
         addPasswordField(passwordField, row, col);
+    }
+
+    public void setPasswordField(GridBagConstraints gblConstraints, int startingWidth) {
+        this.passwordField = new PasswordField(startingWidth);
+        addPasswordField(passwordField, gblConstraints);
     }
 
     public void setSlider(SliderType sliderType, int row, int col) {
@@ -128,25 +167,33 @@ public class PasswordPanel extends JPanel {
         }
     }
 
+    public void setSlider(SliderType sliderType, GridBagConstraints gblConstraints) {
+        switch (sliderType) {
+            case LETTER:
+                this.letterSlider = new PasswordSlider(sliderType); 
+                addSlider(this.letterSlider, gblConstraints);
+                ++gblConstraints.gridx;
+                addSliderLabel(this.letterSlider.getLabel(), gblConstraints);
+                break;
+            case SPECIAL_CHAR:
+                this.specialCharSlider = new PasswordSlider(sliderType);
+                addSlider(this.specialCharSlider, gblConstraints);
+                ++gblConstraints.gridx;
+                addSliderLabel(this.specialCharSlider.getLabel(), gblConstraints);
+                break;
+            case INTEGER:
+                this.intSlider = new PasswordSlider(sliderType);
+                addSlider(this.intSlider, gblConstraints);
+                ++gblConstraints.gridx;
+                addSliderLabel(this.intSlider.getLabel(), gblConstraints);
+                break;
+            default:
+                throw new IllegalArgumentException("Must define slider type: ['LETTER', 'SPECIAL_CHAR', 'INTEGER']");
+        }
+    }
+
     public void addEmptyBorder(Color backgroundColor) {
         this.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
         this.setBackground(backgroundColor);
-    }
-
-    public void addButtonBorders(Insets paddingInsets) {
-        this.buttonBorder = new EmptyBorder(paddingInsets);
-        this.generateButton.setBorder(this.buttonBorder);
-    }
-
-    public void addTextAreaBorders(Insets paddingInsets) {
-        this.textAreaBorder = new EmptyBorder(paddingInsets);
-        this.passwordField.setBorder(this.textAreaBorder);
-    }
-
-    public void addSliderBorders(Insets paddingInsets) {
-        this.sliderBorder = new EmptyBorder(paddingInsets); 
-        this.letterSlider.setBorder(this.sliderBorder);
-        this.specialCharSlider.setBorder(this.sliderBorder);
-        this.intSlider.setBorder(this.sliderBorder);
     }
 }

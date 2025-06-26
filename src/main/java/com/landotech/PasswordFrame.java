@@ -3,7 +3,6 @@ package com.landotech;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
@@ -85,16 +84,32 @@ public class PasswordFrame extends JFrame {
         this.passwordPanel.setSlider(SliderType.INTEGER, startingRow, startingColumn);
     }
 
+    public void addSelectionSlider(SliderType sliderType, GridBagConstraints gblConstraints) {
+        this.passwordPanel.setSlider(sliderType, gblConstraints);
+    }
+
     public void addGenerateButton(int row, int col) {
         this.passwordPanel.setGenerateButton(row, col);
+    }
+
+    public void addGenerateButton(GridBagConstraints gblConstraints) {
+        this.passwordPanel.setGenerateButton(gblConstraints);
     }
 
     public void addPasswordField(int row, int col) {
         this.passwordPanel.setPasswordField(row, col);
     }
 
+    public void addPasswordField(GridBagConstraints gblConstraints) {
+        this.passwordPanel.setPasswordField(gblConstraints);
+    }
+
     public void addHidePasswordButton(int row, int col) {
         this.passwordPanel.setHideButton(row, col);
+    }
+
+    public void addHidePasswordButton(GridBagConstraints gblConstraints) {
+        this.passwordPanel.setHideButton(gblConstraints);
     }
 
     public void setWinLabel(String windowLabel) {
@@ -120,17 +135,5 @@ public class PasswordFrame extends JFrame {
 
     public void setPanelBorder(Color backgroundColor) {
         this.passwordPanel.addEmptyBorder(backgroundColor);
-    }
-
-    public void setButtonBorder(Insets paddingInsets) {
-        this.passwordPanel.addButtonBorders(paddingInsets);
-    }
-
-    public void setTextAreaBorder(Insets paddingInsets) {
-        this.passwordPanel.addTextAreaBorders(paddingInsets);
-    }
-
-    public void setSliderBorder(Insets paddingInsets) {
-        this.passwordPanel.addSliderBorders(paddingInsets);
     }
 }
