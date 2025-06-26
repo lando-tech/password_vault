@@ -6,6 +6,10 @@ public class PasswordField extends JPasswordField {
 
     private String passwordText;
 
+    PasswordField(int width) {
+        this.setColumns(width);
+    }
+
     public void setPasswordText(String passwordText) {
         this.passwordText = passwordText;
         this.setText(this.passwordText);

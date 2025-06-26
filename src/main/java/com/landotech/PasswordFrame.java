@@ -2,6 +2,8 @@ package com.landotech;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
@@ -114,5 +116,21 @@ public class PasswordFrame extends JFrame {
 
     public void setGridLayout(int rows, int cols) {
         this.setLayout(new GridLayout(rows, cols));
+    }
+
+    public void setPanelBorder(Color backgroundColor) {
+        this.passwordPanel.addEmptyBorder(backgroundColor);
+    }
+
+    public void setButtonBorder(Insets paddingInsets) {
+        this.passwordPanel.addButtonBorders(paddingInsets);
+    }
+
+    public void setTextAreaBorder(Insets paddingInsets) {
+        this.passwordPanel.addTextAreaBorders(paddingInsets);
+    }
+
+    public void setSliderBorder(Insets paddingInsets) {
+        this.passwordPanel.addSliderBorders(paddingInsets);
     }
 }

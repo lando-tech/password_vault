@@ -1,6 +1,7 @@
 package com.landotech;
 
-// import java.util.Scanner;
+import java.awt.Color;
+import java.awt.Insets;
 
 public class Main {
     public static void main( String[] args ) {
@@ -14,11 +15,15 @@ public class Main {
 
         PasswordPanel passwordPanel = new PasswordPanel();
         mainWindow.setPasswordPanel(passwordPanel);
+        mainWindow.setPanelBorder(Color.WHITE);
 
         mainWindow.addSelectionSliders(0, 0);
         mainWindow.addGenerateButton(3, 0);
         mainWindow.addPasswordField(4, 0);
         mainWindow.addHidePasswordButton(4, 1);
+
+        mainWindow.setButtonBorder(new Insets(8, 8, 8, 8));
+
         mainWindow.setVisible(true);
     }
 }

@@ -9,8 +9,11 @@ public class HidePasswordButton extends JButton {
 
     private PasswordField passwordField;
 
+    private final String openEye = "\uD83D\uDC41"; 
+    private final String closedEye = "\uD83D\uDC41\u0338"; 
+
     HidePasswordButton() {
-        this.setText("Show");
+        this.setText(openEye);
         changeHidden();
     }
 
@@ -19,11 +22,11 @@ public class HidePasswordButton extends JButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton source = (JButton) e.getSource();
-                if (source.getText().equals("Hide")) {
-                    source.setText("Show");
+                if (source.getText().equals(closedEye)) {
+                    source.setText(openEye);
                     hidePassword();
                 } else {
-                    source.setText("Hide");
+                    source.setText(closedEye);
                     unhidePassword();
                 }
             }  

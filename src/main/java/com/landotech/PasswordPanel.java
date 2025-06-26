@@ -1,8 +1,12 @@
 package com.landotech;
 
 import javax.swing.JPanel;
-// import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.Insets;
+
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -18,6 +22,10 @@ public class PasswordPanel extends JPanel {
     private PasswordField passwordField;
 
     private GenerationHandler generationHandler;
+
+    private EmptyBorder buttonBorder;
+    private EmptyBorder sliderBorder;
+    private EmptyBorder textAreaBorder;
 
     PasswordPanel() {
         this.setLayout(getGblayout());
@@ -37,6 +45,8 @@ public class PasswordPanel extends JPanel {
         this.gblConstraints.gridx = col;
         this.gblConstraints.gridy = row;
     }
+
+
 
     private void addSliderLabel(JLabel sliderLabel, int row, int column) {
         setGblGridXY(row, column);
@@ -77,21 +87,25 @@ public class PasswordPanel extends JPanel {
         return this.gblConstraints;
     }
 
+    public void setGblInsets(Insets gblInsets) {
+        this.gblConstraints.insets = gblInsets;
+    }
+
     public void setGenerateButton(int row, int col) {
         this.generateButton = new PasswordGenButton("Generate");
         this.generateButton.addActionListener(this.generationHandler);
         addGenerateButton(generateButton, row, col);
     }
 
-    public void setPasswordField(int row, int col) {
-        this.passwordField = new PasswordField();
-        addPasswordField(passwordField, row, col);
-    }
-
     public void setHideButton(int row, int col) {
         this.hidePasswordButton = new HidePasswordButton();
         this.hidePasswordButton.addField(this.passwordField);
         addHidePasswordButton(hidePasswordButton, row, col);
+    }
+
+    public void setPasswordField(int row, int col) {
+        this.passwordField = new PasswordField(20);
+        addPasswordField(passwordField, row, col);
     }
 
     public void setSlider(SliderType sliderType, int row, int col) {
@@ -114,5 +128,27 @@ public class PasswordPanel extends JPanel {
             default:
                 throw new IllegalArgumentException("Must define slider type: ['LETTER', 'SPECIAL_CHAR', 'INTEGER']");
         }
+    }
+
+    public void addEmptyBorder(Color backgroundColor) {
+        this.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
+        this.setBackground(backgroundColor);
+    }
+
+    public void addButtonBorders(Insets paddingInsets) {
+        this.buttonBorder = new EmptyBorder(paddingInsets);
+        this.generateButton.setBorder(this.buttonBorder);
+    }
+
+    public void addTextAreaBorders(Insets paddingInsets) {
+        this.textAreaBorder = new EmptyBorder(paddingInsets);
+        this.passwordField.setBorder(this.textAreaBorder);
+    }
+
+    public void addSliderBorders(Insets paddingInsets) {
+        this.sliderBorder = new EmptyBorder(paddingInsets); 
+        this.letterSlider.setBorder(this.sliderBorder);
+        this.specialCharSlider.setBorder(this.sliderBorder);
+        this.intSlider.setBorder(this.sliderBorder);
     }
 }
