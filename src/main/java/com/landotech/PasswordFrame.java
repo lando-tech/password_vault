@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.GridBagConstraints;
 
 public class PasswordFrame extends JFrame {
@@ -16,7 +17,7 @@ public class PasswordFrame extends JFrame {
 
     private int winHeight;
     private int winWidth;
-    private final int baseWidth = 400;
+    private final int baseWidth = 500;
     private final int baseHeight = 400;
 
     PasswordFrame(String windowLabel) {
@@ -79,34 +80,48 @@ public class PasswordFrame extends JFrame {
         addPasswordPanel();
     }
 
-    public void addSelectionSliders(int startingRow, int startingColumn) {
-        this.passwordPanel.setSlider(SliderType.LETTER, startingRow++, startingColumn);
-        this.passwordPanel.setSlider(SliderType.SPECIAL_CHAR, startingRow++, startingColumn);
-        this.passwordPanel.setSlider(SliderType.INTEGER, startingRow, startingColumn);
+    public void addLetterSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.passwordPanel.setLetterSlider(gbc, sliderLabel, toolTipText);
     }
 
-    public void addSelectionSlider(SliderType sliderType, GridBagConstraints gblConstraints) {
-        this.passwordPanel.setSlider(sliderType, gblConstraints);
+    public void addLetterSliderLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setLetterSliderLabel(gbc);
     }
 
-    public void addGenerateButton(int row, int col) {
-        this.passwordPanel.setGenerateButton(row, col);
+    public void addLetterSliderValueLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setLetterSliderValueLabel(gbc);
+    }
+
+    public void addSpecialCharSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.passwordPanel.setSpecialCharSlider(gbc, sliderLabel, toolTipText);
+    }
+
+    public void addSpecialCharSliderLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setSpecialCharSliderLabel(gbc);
+    }
+
+    public void addSpecialCharSliderValueLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setSpecialCharSliderValueLabel(gbc);
+    }
+
+    public void addIntSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.passwordPanel.setIntSlider(gbc, sliderLabel, toolTipText);
+    }
+
+    public void addIntSliderLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setIntSliderLabel(gbc);
+    }
+
+    public void addIntSliderValueLabel(GridBagConstraints gbc) {
+        this.passwordPanel.setIntSliderValueLabel(gbc);
     }
 
     public void addGenerateButton(GridBagConstraints gblConstraints) {
         this.passwordPanel.setGenerateButton(gblConstraints);
     }
 
-    public void addPasswordField(int row, int col) {
-        this.passwordPanel.setPasswordField(row, col);
-    }
-
     public void addPasswordField(GridBagConstraints gblConstraints, int startingWidth) {
         this.passwordPanel.setPasswordField(gblConstraints, startingWidth);
-    }
-
-    public void addHidePasswordButton(int row, int col) {
-        this.passwordPanel.setHideButton(row, col);
     }
 
     public void addHidePasswordButton(GridBagConstraints gblConstraints) {
@@ -134,7 +149,7 @@ public class PasswordFrame extends JFrame {
         this.setLayout(new GridLayout(rows, cols));
     }
 
-    public void setPanelBorder(Color backgroundColor) {
-        this.passwordPanel.addEmptyBorder(backgroundColor);
+    public void setPanelBorder(Color backgroundColor, Insets insets) {
+        this.passwordPanel.addEmptyBorder(backgroundColor, insets);
     }
 }

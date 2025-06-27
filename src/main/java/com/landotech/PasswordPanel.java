@@ -16,17 +16,13 @@ public class PasswordPanel extends JPanel {
     private PasswordSlider specialCharSlider;
     private PasswordSlider intSlider;
 
-    private GridBagConstraints gblConstraints;
     private PasswordGenButton generateButton;
     private HidePasswordButton hidePasswordButton;
     private PasswordField passwordField;
-
     private GenerationHandler generationHandler;
-
 
     PasswordPanel() {
         this.setLayout(getGblayout());
-        this.setGblConstraints();
         this.setGenerationHandler();
     }
 
@@ -34,71 +30,30 @@ public class PasswordPanel extends JPanel {
         return new GridBagLayout();
     }
 
-    private void setGblConstraints() {
-        this.gblConstraints = new GridBagConstraints();
+    private void addSliderLabel(JLabel sliderLabel, GridBagConstraints gbc) {
+        this.add(sliderLabel, gbc);
     }
 
-    private void setGblGridXY(int row, int col) {
-        this.gblConstraints.gridx = col;
-        this.gblConstraints.gridy = row;
-    }
-
-    private void setGblPadXY(int padx, int pady) {
-        this.gblConstraints.ipadx = padx;
-        this.gblConstraints.ipady = pady;
-    }
-
-    private void setGblInsets(Insets insets) {
-        this.gblConstraints.insets = insets;
-    }
-
-    private void addSliderLabel(JLabel sliderLabel, int row, int column) {
-        setGblGridXY(row, column);
-        this.add(sliderLabel, this.gblConstraints);
-    }
-
-    private void addSliderLabel(JLabel sliderLabel, GridBagConstraints gblConstraints) {
-        this.add(sliderLabel, gblConstraints);
-    }
-
-    private void addSlider(PasswordSlider slider, int row, int col) {
-        setGblGridXY(row, col);
-        this.add(slider, this.gblConstraints);
-        this.generationHandler.addSlider(slider);
-    }
-
-    private void addSlider(PasswordSlider passwordSlider, GridBagConstraints gblConstraints) {
-        this.add(passwordSlider, gblConstraints);
+    private void addSlider(PasswordSlider passwordSlider, GridBagConstraints gbc) {
+        this.add(passwordSlider, gbc);
         this.generationHandler.addSlider(passwordSlider);
     }
 
-    private void addGenerateButton(PasswordGenButton passwordGenButton, int row, int col) {
-        setGblGridXY(row, col);
-        this.add(passwordGenButton, this.gblConstraints);
+    private void addSliderToolTip(PasswordSlider slider, String toolTipText) {
+        slider.setToolTipText(toolTipText);
     }
 
-    private void addGenerateButton(PasswordGenButton passwordGenButton, GridBagConstraints gblConstraints) {
-        this.add(passwordGenButton, gblConstraints);
+    private void addGenerateButton(PasswordGenButton passwordGenButton, GridBagConstraints gbc) {
+        this.add(passwordGenButton, gbc);
     }
 
-    private void addPasswordField(PasswordField passwordField, int row, int col) {
-        setGblGridXY(row, col);
-        this.add(this.passwordField, this.gblConstraints);
+    private void addPasswordField(PasswordField passwordField, GridBagConstraints gbc) {
+        this.add(passwordField, gbc);
         this.generationHandler.setPasswordField(this.passwordField);
     }
 
-    private void addPasswordField(PasswordField passwordField, GridBagConstraints gblConstraints) {
-        this.add(passwordField, gblConstraints);
-        this.generationHandler.setPasswordField(this.passwordField);
-    }
-
-    private void addHidePasswordButton(HidePasswordButton hidePasswordButton, int row, int col) {
-        setGblGridXY(row, col);
-        this.add(hidePasswordButton, this.gblConstraints);
-    }
-
-    private void addHidePasswordButton(HidePasswordButton hidePasswordButton, GridBagConstraints gblConstraints) {
-        this.add(hidePasswordButton, gblConstraints);
+    private void addHidePasswordButton(HidePasswordButton hidePasswordButton, GridBagConstraints gbc) {
+        this.add(hidePasswordButton, gbc);
     }
 
     private void setGenerationHandler() {
@@ -109,93 +64,67 @@ public class PasswordPanel extends JPanel {
         return this.generationHandler;
     }
 
-    public GridBagConstraints getGblConstraints() {
-        return this.gblConstraints;
-    }
-
-    public void setGenerateButton(int row, int col) {
+    public void setGenerateButton(GridBagConstraints gbc) {
         this.generateButton = new PasswordGenButton("Generate");
         this.generateButton.addActionListener(this.generationHandler);
-        addGenerateButton(generateButton, row, col);
+        addGenerateButton(generateButton, gbc);
     }
 
-    public void setGenerateButton(GridBagConstraints gblConstraints) {
-        this.generateButton = new PasswordGenButton("Generate");
-        this.generateButton.addActionListener(this.generationHandler);
-        addGenerateButton(generateButton, gblConstraints);
-    }
-
-    public void setHideButton(int row, int col) {
+    public void setHideButton(GridBagConstraints gbc) {
         this.hidePasswordButton = new HidePasswordButton();
         this.hidePasswordButton.addField(this.passwordField);
-        addHidePasswordButton(hidePasswordButton, row, col);
+        addHidePasswordButton(hidePasswordButton, gbc);
     }
 
-    public void setHideButton(GridBagConstraints gblConstraints) {
-        this.hidePasswordButton = new HidePasswordButton();
-        this.hidePasswordButton.addField(this.passwordField);
-        addHidePasswordButton(hidePasswordButton, gblConstraints);
-    }
-
-    public void setPasswordField(int row, int col) {
-        this.passwordField = new PasswordField(20);
-        addPasswordField(passwordField, row, col);
-    }
-
-    public void setPasswordField(GridBagConstraints gblConstraints, int startingWidth) {
+    public void setPasswordField(GridBagConstraints gbc, int startingWidth) {
         this.passwordField = new PasswordField(startingWidth);
-        addPasswordField(passwordField, gblConstraints);
+        addPasswordField(passwordField, gbc);
     }
 
-    public void setSlider(SliderType sliderType, int row, int col) {
-        switch (sliderType) {
-            case LETTER:
-                this.letterSlider = new PasswordSlider(sliderType); 
-                addSlider(this.letterSlider, row, col);
-                addSliderLabel(this.letterSlider.getLabel(), row, col + 1);
-                break;
-            case SPECIAL_CHAR:
-                this.specialCharSlider = new PasswordSlider(sliderType);
-                addSlider(this.specialCharSlider, row, col);
-                addSliderLabel(this.specialCharSlider.getLabel(), row, col + 1);
-                break;
-            case INTEGER:
-                this.intSlider = new PasswordSlider(sliderType);
-                addSlider(this.intSlider, row, col);
-                addSliderLabel(this.intSlider.getLabel(), row, col + 1);
-                break;
-            default:
-                throw new IllegalArgumentException("Must define slider type: ['LETTER', 'SPECIAL_CHAR', 'INTEGER']");
-        }
+    public void setLetterSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.letterSlider = new PasswordSlider(SliderType.LETTER, sliderLabel, toolTipText);
+        addSlider(this.letterSlider, gbc);
+        addSliderToolTip(this.letterSlider, toolTipText);
     }
 
-    public void setSlider(SliderType sliderType, GridBagConstraints gblConstraints) {
-        switch (sliderType) {
-            case LETTER:
-                this.letterSlider = new PasswordSlider(sliderType); 
-                addSlider(this.letterSlider, gblConstraints);
-                ++gblConstraints.gridx;
-                addSliderLabel(this.letterSlider.getLabel(), gblConstraints);
-                break;
-            case SPECIAL_CHAR:
-                this.specialCharSlider = new PasswordSlider(sliderType);
-                addSlider(this.specialCharSlider, gblConstraints);
-                ++gblConstraints.gridx;
-                addSliderLabel(this.specialCharSlider.getLabel(), gblConstraints);
-                break;
-            case INTEGER:
-                this.intSlider = new PasswordSlider(sliderType);
-                addSlider(this.intSlider, gblConstraints);
-                ++gblConstraints.gridx;
-                addSliderLabel(this.intSlider.getLabel(), gblConstraints);
-                break;
-            default:
-                throw new IllegalArgumentException("Must define slider type: ['LETTER', 'SPECIAL_CHAR', 'INTEGER']");
-        }
+    public void setLetterSliderLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.letterSlider.getLabel(), gbc);
     }
 
-    public void addEmptyBorder(Color backgroundColor) {
-        this.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
-        this.setBackground(backgroundColor);
+    public void setLetterSliderValueLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.letterSlider.getValueLabel(), gbc);
+    }
+
+    public void setSpecialCharSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.specialCharSlider = new PasswordSlider(SliderType.SPECIAL_CHAR, sliderLabel, toolTipText);
+        addSlider(this.specialCharSlider, gbc);
+        addSliderToolTip(this.specialCharSlider, toolTipText);
+    }
+
+    public void setSpecialCharSliderLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.specialCharSlider.getLabel(), gbc);
+    }
+
+    public void setSpecialCharSliderValueLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.specialCharSlider.getValueLabel(), gbc);
+    }
+
+    public void setIntSlider(GridBagConstraints gbc, String sliderLabel, String toolTipText) {
+        this.intSlider = new PasswordSlider(SliderType.INTEGER, sliderLabel, toolTipText);
+        addSlider(this.intSlider, gbc);
+        addSliderToolTip(this.intSlider, toolTipText);
+    }
+
+    public void setIntSliderLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.intSlider.getLabel(), gbc);
+    }
+
+    public void setIntSliderValueLabel(GridBagConstraints gbc) {
+        addSliderLabel(this.intSlider.getValueLabel(), gbc);
+    }
+
+    public void addEmptyBorder(Color bgColor, Insets insets) {
+        this.setBorder(new EmptyBorder(insets));
+        this.setBackground(bgColor);
     }
 }
