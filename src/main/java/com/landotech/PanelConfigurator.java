@@ -1,6 +1,7 @@
 package com.landotech;
 
 public class PanelConfigurator {
+
     private GBCHandler gbcHandler;
     private PasswordFrame mainFrame;
 
